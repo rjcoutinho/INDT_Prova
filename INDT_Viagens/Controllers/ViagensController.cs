@@ -40,6 +40,11 @@ public class ViagensController : ControllerBase
             TipoOperacao.AlterarRota);
 
         var updatedRota = await _mediator.Send(command);
+        if (updatedRota == null)
+        {
+            return NotFound("Não foi possível alterar a rota, pois ela não existe");
+        }
+
         return CreatedAtAction(nameof(AlterarRota), updatedRota);
     }
 
